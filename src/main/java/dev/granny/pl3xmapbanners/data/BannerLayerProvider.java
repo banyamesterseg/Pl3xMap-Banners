@@ -64,12 +64,12 @@ public class BannerLayerProvider implements LayerProvider {
     }
 
     public void add(Position position, Key key, String name) {
-        name = name == null ? "null" : name;
         Logger.debug(position + " icon: " + key + " name: " + name);
         Icon icon = Marker.icon(position.point(), key, worldConfig.ICON_SIZE);
-        icon.markerOptions(MarkerOptions.builder()
-                .hoverTooltip(worldConfig.TOOLTIP
-                        .replace("{name}", name)));
+        if (name != null) {
+          icon.markerOptions(MarkerOptions.builder()
+                .hoverTooltip(worldConfig.TOOLTIP.replace("{name}", name)));
+        }
         this.data.put(position, new Data(icon, key, name));
     }
 
